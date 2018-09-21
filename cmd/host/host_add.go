@@ -29,7 +29,7 @@ func hostAdd(c *cli.Context) error {
 	}
 	uri := fmt.Sprintf("%s/hosts/%s", conn.Server, name)
 
-	resp, err := conn.DoRequest("POST", uri, data, "")
+	resp, err := conn.DoRequest("POST", uri, data)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

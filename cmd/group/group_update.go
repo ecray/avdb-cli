@@ -51,7 +51,7 @@ func groupUpdate(c *cli.Context) error {
 	}
 	uri := fmt.Sprintf("%s/groups/%s", conn.Server, name)
 
-	resp, err := conn.DoRequest("PUT", uri, payload, "")
+	resp, err := conn.DoRequest("PUT", uri, payload)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

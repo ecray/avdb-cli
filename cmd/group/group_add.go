@@ -50,7 +50,7 @@ func groupAdd(c *cli.Context) error {
 		return cli.NewExitError(err.Error(), 1)
 	}
 
-	resp, err := conn.DoRequest("POST", uri, payload, "")
+	resp, err := conn.DoRequest("POST", uri, payload)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

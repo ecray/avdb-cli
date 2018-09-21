@@ -34,12 +34,31 @@ func NewConnection(c *cli.Context) (Connection, error) {
 	return conn, nil
 }
 
-//func DoRequest(method, uri, data string) ([]byte, error) {
-func (conn *Connection) DoRequest(method, uri, data, query string) ([]byte, error) {
-	client := &http.Client{}
-
+// DRY work to be done
+func (conn *Connection) DoQueryRequest(method, uri, data string, query []string) ([]byte, error) {
 	var req *http.Request
 	var err error
+
+	req, err = http.NewRequest(method, uri, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(query[0]) != 0 {
+		q := req.URL.Query()
+		for _, s := range query {
+			tmp := strings.Split(s, "=")
+			q.Add(tmp[0], tmp[1])
+		}
+		req.URL.RawQuery = q.Encode()
+	}
+	return conn.requestHandler(req)
+}
+
+func (conn *Connection) DoRequest(method, uri, data string) ([]byte, error) {
+	var req *http.Request
+	var err error
+
 	if method == "POST" || method == "PUT" {
 		req, err = http.NewRequest(method, uri, bytes.NewBuffer([]byte(data)))
 		if err != nil {
@@ -51,37 +70,25 @@ func (conn *Connection) DoRequest(method, uri, data, query string) ([]byte, erro
 			return nil, err
 		}
 	}
+	return conn.requestHandler(req)
+}
 
-	if query != "" {
-		qmap := make(map[string]string)
-		// needs more for loop - bruce dickinson
-		split := strings.Split(query, "=")
-		qmap[split[0]] = split[1]
+func (conn *Connection) requestHandler(req *http.Request) ([]byte, error) {
+	client := &http.Client{}
 
-		q := req.URL.Query()
-		for k, v := range qmap {
-			q.Add(k, v)
-		}
-		req.URL.RawQuery = q.Encode()
-	}
-
-	//req.SetBasicAuth("USER", "PASSWD")
-	req.Header.Add("Content-Type", "application/json")
+	//req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Auth-Token", conn.ApiKey)
-	//req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
-
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
+	// error handling
 	if resp.StatusCode >= 400 {
-		return nil, errors.New(fmt.Sprintf("HTTP Code: %d", resp.StatusCode))
-	} else if resp.StatusCode > 300 {
-		return nil, errors.New(fmt.Sprintf("Something is fucked: ", resp.StatusCode))
+		rc := errors.New(fmt.Sprintf("%s - %d", http.StatusText(resp.StatusCode), resp.StatusCode))
+		return nil, rc
 	}
-	// May need handler for 204 with DELETE
 
 	// convert to []byte to return
 	rq, err := ioutil.ReadAll(resp.Body)

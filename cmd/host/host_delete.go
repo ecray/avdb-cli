@@ -22,7 +22,7 @@ func hostDelete(c *cli.Context) error {
 	}
 	uri := fmt.Sprintf("%s/hosts/%s", conn.Server, name)
 
-	_, err = conn.DoRequest("DELETE", uri, "", "")
+	_, err = conn.DoRequest("DELETE", uri, "")
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

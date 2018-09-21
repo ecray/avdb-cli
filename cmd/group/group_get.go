@@ -1,9 +1,11 @@
 package group
 
 import (
+	_ "encoding/json"
 	"fmt"
 	"github.com/urfave/cli"
 	"github.marqeta.com/ecray/avdb-cli/util"
+	"strings"
 )
 
 var groupGetCmd = cli.Command{
@@ -36,7 +38,7 @@ func groupGet(c *cli.Context) error {
 	}
 	uri := fmt.Sprintf("%s/groups/%s", conn.Server, name)
 
-	resp, err := conn.DoRequest("GET", uri, "", "")
+	resp, err := conn.DoRequest("GET", uri, "")
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
@@ -49,7 +51,7 @@ func groupGet(c *cli.Context) error {
 }
 
 func groupGetAll(c *cli.Context) error {
-	query := c.String("query")
+	query := strings.Split(c.String("query"), ",")
 
 	conn, err := util.NewConnection(c)
 	if err != nil {
@@ -57,7 +59,7 @@ func groupGetAll(c *cli.Context) error {
 	}
 	uri := fmt.Sprintf("%s/groups", conn.Server)
 
-	resp, err := conn.DoRequest("GET", uri, "", query)
+	resp, err := conn.DoQueryRequest("GET", uri, "", query)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

@@ -29,7 +29,7 @@ func hostUpdate(c *cli.Context) error {
 		return cli.NewExitError(err.Error(), 1)
 	}
 
-	resp, err := conn.DoRequest("PUT", uri, data, "")
+	resp, err := conn.DoRequest("PUT", uri, data)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
