@@ -6,9 +6,9 @@ import (
 )
 
 type GroupInfo struct {
-	Group string            `json:"group"`
-	Data  map[string]string `json:"data"`
-	Hosts []string          `json:"hosts"`
+	Group string                 `json:"group"`
+	Data  map[string]interface{} `json:"data"`
+	Hosts []string               `json:"hosts"`
 }
 
 func formatOutput(resp []byte) error {
