@@ -13,9 +13,9 @@ avdb-cli host delete infdcpdns01
 
 import (
 	"fmt"
+	"github.com/ecray/avdb-cli/cmd/group"
+	"github.com/ecray/avdb-cli/cmd/host"
 	"github.com/urfave/cli"
-	"github.marqeta.com/ecray/avdb-cli/cmd/group"
-	"github.marqeta.com/ecray/avdb-cli/cmd/host"
 	"os"
 )
 
@@ -27,7 +27,7 @@ func main() {
 	app.Authors = []cli.Author{
 		cli.Author{
 			Name:  "Eric Raymond",
-			Email: "eraymond@marqeta.com",
+			Email: "ecraymond@gmail.com",
 		},
 	}
 	app.Flags = []cli.Flag{

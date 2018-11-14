@@ -2,8 +2,8 @@ package host
 
 import (
 	"fmt"
+	"github.com/ecray/avdb-cli/util"
 	"github.com/urfave/cli"
-	"github.marqeta.com/ecray/avdb-cli/util"
 	"strings"
 )
 
