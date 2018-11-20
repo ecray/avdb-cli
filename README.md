@@ -36,8 +36,8 @@ export AVDB_SERVER=http://avdb.server.com:3000
 
 # Updating / Removing hosts, data
 
-## removes infdcpdns01 from las10-adm group
-> avdb-cli group update foodtrucks -hosts -infdcpdns01
+## removes tacotruck01 from foodtrucks group
+> avdb-cli group update foodtrucks -hosts -tacotruck01
 
 ## removes item roaches from data in hosts
 > avdb-cli host update tacotruck01 roaches=
