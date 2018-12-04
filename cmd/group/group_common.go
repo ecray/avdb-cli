@@ -5,27 +5,17 @@ import (
 	"os"
 )
 
+type Groups interface{}
+
 type GroupInfo struct {
 	Group string                 `json:"group"`
-	Data  map[string]interface{} `json:"data"`
-	Hosts []string               `json:"hosts"`
+	Data  map[string]interface{} `json:"data,omitempty"`
+	Hosts []*string              `json:"hosts,omitempty"`
 }
 
 func formatOutput(resp []byte) error {
-	var group *GroupInfo
-	err := json.Unmarshal(resp, &group)
-	if err != nil {
-		return err
-	}
-	enc := json.NewEncoder(os.Stdout)
-	enc.SetIndent("", "    ")
-	enc.Encode(group)
+	var groups *Groups
 
-	return nil
-}
-
-func formatOutputAll(resp []byte) error {
-	var groups []*GroupInfo
 	err := json.Unmarshal(resp, &groups)
 	if err != nil {
 		return err

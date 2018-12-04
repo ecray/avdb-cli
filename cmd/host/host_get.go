@@ -63,7 +63,7 @@ func hostGetAll(c *cli.Context) error {
 		return cli.NewExitError(err.Error(), 1)
 	}
 
-	formatOutputAll(resp)
+	formatOutput(resp)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

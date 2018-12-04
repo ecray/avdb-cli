@@ -76,7 +76,7 @@ func (conn *Connection) DoRequest(method, uri, data string) ([]byte, error) {
 func (conn *Connection) requestHandler(req *http.Request) ([]byte, error) {
 	client := &http.Client{}
 
-	//req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Auth-Token", conn.ApiKey)
 	resp, err := client.Do(req)
 	if err != nil {

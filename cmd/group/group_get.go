@@ -1,12 +1,21 @@
 package group
 
 import (
-	_ "encoding/json"
 	"fmt"
 	"github.com/ecray/avdb-cli/util"
 	"github.com/urfave/cli"
 	"strings"
+	"time"
 )
+
+type Group struct {
+	Name      string      `json:"group"`
+	Data      interface{} `json:"data"`
+	Hosts     []string    `json:"hosts"`
+	CreatedAt time.Time   `json:"-"`
+	DeletedAt time.Time   `json:"-"`
+	UpdatedAt time.Time   `json:"-"`
+}
 
 var groupGetCmd = cli.Command{
 	Name:      "get",
@@ -64,7 +73,7 @@ func groupGetAll(c *cli.Context) error {
 		return cli.NewExitError(err.Error(), 1)
 	}
 
-	err = formatOutputAll(resp)
+	err = formatOutput(resp)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
