@@ -24,7 +24,7 @@ func hostUpdate(c *cli.Context) error {
 	data := c.String("data")
 
 	conn, err := util.NewConnection(c)
-	uri := fmt.Sprintf("%s/hosts/%s", conn.Server, name)
+	uri := fmt.Sprintf("%s/api/v1/hosts/%s", conn.Server, name)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

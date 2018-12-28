@@ -45,7 +45,7 @@ func groupAdd(c *cli.Context) error {
 	//fmt.Println("String Payload: ", string(payload))
 
 	conn, err := util.NewConnection(c)
-	uri := fmt.Sprintf("%s/groups/%s", conn.Server, name)
+	uri := fmt.Sprintf("%s/api/v1/groups/%s", conn.Server, name)
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}

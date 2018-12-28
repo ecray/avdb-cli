@@ -20,7 +20,7 @@ func groupDelete(c *cli.Context) error {
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
-	uri := fmt.Sprintf("%s/groups/%s", conn.Server, name)
+	uri := fmt.Sprintf("%s/api/v1/groups/%s", conn.Server, name)
 
 	_, err = conn.DoRequest("DELETE", uri, "")
 	if err != nil {

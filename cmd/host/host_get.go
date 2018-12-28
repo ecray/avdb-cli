@@ -35,7 +35,7 @@ func hostGet(c *cli.Context) error {
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
-	uri := fmt.Sprintf("%s/hosts/%s", conn.Server, name)
+	uri := fmt.Sprintf("%s/api/v1/hosts/%s", conn.Server, name)
 
 	resp, err := conn.DoRequest("GET", uri, "")
 	if err != nil {
@@ -56,7 +56,7 @@ func hostGetAll(c *cli.Context) error {
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
-	uri := fmt.Sprintf("%s/hosts", conn.Server)
+	uri := fmt.Sprintf("%s/api/v1/hosts", conn.Server)
 
 	resp, err := conn.DoQueryRequest("GET", uri, "", query)
 	if err != nil {
