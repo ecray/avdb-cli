@@ -66,7 +66,7 @@ func groupGetAll(c *cli.Context) error {
 	if err != nil {
 		return cli.NewExitError(err.Error(), 1)
 	}
-	uri := fmt.Sprintf("%s/groups", conn.Server)
+	uri := fmt.Sprintf("%s/api/v1/groups", conn.Server)
 
 	resp, err := conn.DoQueryRequest("GET", uri, "", query)
 	if err != nil {
