@@ -26,13 +26,24 @@ export AVDB_SERVER=http://avdb.server.com:3000
 
 > avdb-cli group get foodtrucks
 
-> avdb-cli group get all -q host hosts=tacotruck01,cash=yes
+> avdb-cli group get all -q hosts=tacotruck01,cash=yes // for now multiple query parameters are an AND operation
 
 > avdb-cli group add foodtrucks -data $(jo colo=las1) -hosts tacotruck01
 
 > avdb-cli group update foodtrucks -d $(jo cash=no) -hosts tacotruck02,kimcheetruck02
 
 > avdb-cli group delete foodtrucks
+
+# Tag actions
+> avdb-cli tag get all
+
+> avdb-cli tag add WEB_CLUSTER web01
+
+> avdb-cli tag get WEB_CLUSTER
+
+> avdb-cli tag get all -q host=web01
+
+> avdb-cli tag delete WEB_CLUSTER web01
 
 # Updating / Removing hosts, data
 
