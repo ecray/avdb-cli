@@ -3,9 +3,10 @@ package group
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	"github.com/ecray/avdb-cli/util"
 	"github.com/urfave/cli"
-	"strings"
 )
 
 var groupAddCmd = cli.Command{
@@ -42,7 +43,6 @@ func groupAdd(c *cli.Context) error {
 		return cli.NewExitError("Failed to marshal object", 1)
 	}
 	payload := fmt.Sprintf("{\"data\":%v,\"hosts\":%+v}", data, string(hosts))
-	//fmt.Println("String Payload: ", string(payload))
 
 	conn, err := util.NewConnection(c)
 	uri := fmt.Sprintf("%s/api/v1/groups/%s", conn.Server, name)

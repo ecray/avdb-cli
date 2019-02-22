@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/urfave/cli"
 	"io/ioutil"
 	"net/http"
 	_ "os"
 	"strings"
+
+	"github.com/urfave/cli"
 )
 
 type Connection struct {
@@ -59,7 +60,7 @@ func (conn *Connection) DoRequest(method, uri, data string) ([]byte, error) {
 	var req *http.Request
 	var err error
 
-	if method == "POST" || method == "PUT" {
+	if method == "POST" || method == "PUT" || method == "DELETE" {
 		req, err = http.NewRequest(method, uri, bytes.NewBuffer([]byte(data)))
 		if err != nil {
 			return nil, err

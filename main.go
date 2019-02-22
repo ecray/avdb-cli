@@ -1,29 +1,20 @@
 package main
 
-/*
-Rewrite of avdb python client
-
-avdb-cli host get all
-avdb-cli host get infdcpdn01
-avdb-cli host get all -q colo=las1
-avdb-cli host add infdcpdns01 -d $(jo colo=las1)
-avdb-cli host update infdcpdns01 -d $(jo colo=aws)
-avdb-cli host delete infdcpdns01
-*/
-
 import (
 	"fmt"
+	"os"
+
 	"github.com/ecray/avdb-cli/cmd/group"
 	"github.com/ecray/avdb-cli/cmd/host"
+	"github.com/ecray/avdb-cli/cmd/tag"
 	"github.com/urfave/cli"
-	"os"
 )
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "avdb-cli"
 	app.Usage = "manage AVDB"
-	app.Version = "0.1.0"
+	app.Version = "0.2.0"
 	app.Authors = []cli.Author{
 		cli.Author{
 			Name:  "Eric Raymond",
@@ -46,6 +37,7 @@ func main() {
 	app.Commands = []cli.Command{
 		host.Command,
 		group.Command,
+		tag.Command,
 	}
 	app.CommandNotFound = func(c *cli.Context, command string) {
 		fmt.Fprintf(c.App.Writer, "Command %q not found!\n", command)
